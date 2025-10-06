@@ -10,16 +10,16 @@
 <form id="ResetForm" name="ResetForm" method="post" action="password_reset_exec.php">
   <table width="500" border="0" align="left" cellpadding="2" cellspacing="0">
     <tr>
-      <td align="left" width="112"><b>Email:</b></td>
-      <td width="188"><input name="email" type="text" maxlength="255" class="textfield" id="email" value="<?php echo $_GET['email']; ?>"/></td>
-    </tr>
-    <tr>
       <td align="left"><b>Password:</b></td>
       <td><input name="password" type="password" maxlength="50" class="textfield" id="password" /></td>
     </tr>
     <tr>
       <td align="left"><b>Confirm Password:</b></td>
       <td><input name="cpassword" type="password" maxlength="50" class="textfield" id="cpassword" /></td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+      <td width="188"><input name="userkeyid" type="hidden" maxlength="50" class="textfield" id="userkeyid" value="<?php echo $_GET['key']; ?>"/></td>
     </tr>
     <tr>
       <td>&nbsp;</td>

@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS `UserAddress` (
   `statuskeyid` smallint(9) NOT NULL,
   `create_date` datetime NOT NULL,
   `maint_date` timestamp NULL default NULL on update CURRENT_TIMESTAMP,
-  PRIMARY KEY (`userkeyid`,`addresskeyid`),
+  PRIMARY KEY (`userkeyid`,`addresskeyid`,`typekeyid`),
   FOREIGN KEY (`userkeyid`) REFERENCES User(`userkeyid`) ON DELETE RESTRICT,
   FOREIGN KEY (`addresskeyid`) REFERENCES Address(`addresskeyid`) ON DELETE RESTRICT,
   FOREIGN KEY (`typekeyid`) REFERENCES Type(`typekeyid`) ON DELETE RESTRICT,

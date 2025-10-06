@@ -10,5 +10,5 @@
 for tn in TruncateAll Status Type Venue Address VenueAddress User UserAddress Role Category Organization OrganizationAddress UserOrganization Event EventAddress EventCategory OrganizationCategory EventStatusHistory OrganizationStatusHistory
 do
   echo "processing " ${tn}
-  mysql elginevents < ${tn}.sql > ../logs/${tn}.out
+  mysql elginevents < ${tn}.sql > $HOME/www/logs/${tn}.out
 done

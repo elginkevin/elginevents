@@ -1,5 +1,5 @@
 <?php
-	session_start();
+  session_start();
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -10,14 +10,16 @@
 </head>
 <body>
 <?php
-	if( isset($_SESSION['ERRMSG_ARR']) && is_array($_SESSION['ERRMSG_ARR']) && count($_SESSION['ERRMSG_ARR']) >0 ) {
-		echo '<ul class="err">';
-		foreach($_SESSION['ERRMSG_ARR'] as $msg) {
-			echo '<li>',$msg,'</li>'; 
-		}
-		echo '</ul>';
-		unset($_SESSION['ERRMSG_ARR']);
-	}
+  if( isset($_SESSION['ERRMSG_ARR']) && is_array($_SESSION['ERRMSG_ARR']) && count($_SESSION['ERRMSG_ARR']) >0 )
+  {
+    echo '<ul class="err">';
+    foreach($_SESSION['ERRMSG_ARR'] as $msg)
+    {
+      echo '<li>',$msg,'</li>'; 
+    }
+    echo '</ul>';
+    unset($_SESSION['ERRMSG_ARR']);
+  }
 ?>
 <h2>Please tell us a little bit about yourself:</h2>
 <form id="RegistrationForm" name="RegistrationForm" method="post" action="register_exec.php">

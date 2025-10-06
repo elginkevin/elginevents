@@ -32,15 +32,14 @@
   require_once('ps_clean.php');
   
   //Sanitize the POST values
-  $userkeyid = clean($_POST['userkeyid']);
+  $vpassword = clean($_POST['vpassword']);
   $password = clean($_POST['password']);
   $cpassword = clean($_POST['cpassword']);
-  $resethash = clean($_POST['resethash']);
   
   //Input Validations
-  if($userkeyid == '')
+  if($vpassword == '')
   {
-    $errmsg_arr[] = 'Key missing';
+    $errmsg_arr[] = 'Current password missing';
     $errflag = true;
   }
   if($password == '')
@@ -63,23 +62,20 @@
     $errmsg_arr[] = 'Password too short';
     $errflag = true;
   }
-  if($resethash == '')
-  {
-    $errmsg_arr[] = 'Hash missing';
-    $errflag = true;
-  }
-  
+
   //If there are input validations, redirect back to the login form
   if($errflag)
   {
     $_SESSION['ERRMSG_ARR'] = $errmsg_arr;
     session_write_close();
-    header("location: password_reset.php");
+    header("location: password_change.php");
     exit();
   }
 
+  $userkeyid = $_SESSION['SESS_USER_ID'];
+
   //Get salt
-  $qry="SELECT * FROM User WHERE userkeyid=$userkeyid AND resethash = '$resethash'";
+  $qry="SELECT * FROM User WHERE userkeyid='$userkeyid'";
   $result=mysql_query($qry);
 
   //Check whether the user was found
@@ -92,31 +88,34 @@
     }
     else
     {
-      header("location: password_reset_failed.php");
-      exit();
+      die("User not found!");
     }
   }
   else
   {
-    die("Query failed");
+    die("User lookup failed!");
   }
+
+  //Do encryption
+  $vencrypt = new PS_Encrypt();
+  $vpasshash = bin2hex($vencrypt->encrypt("$passalt","$vpassword"));
 
   //Do encryption
   $encrypt = new PS_Encrypt();
   $passhash = bin2hex($encrypt->encrypt("$passalt","$password"));
 
   //Update password
-  $qry = "UPDATE User SET passhash = '$passhash', resethash = NULL WHERE userkeyid = $userkeyid";
+  $qry = "UPDATE User SET passhash = '$passhash', resethash = NULL WHERE userkeyid = $userkeyid and passhash='$vpasshash'";
   $result = @mysql_query($qry);
-
+  
   //Check whether the query was successful or not
-  if($result)
+  if($result != 0)
   {
-    header("location: login_form.php");
+    header("location: user_profile.php");
     exit();
   }
   else
   {
-    die("Password reset failed!");
+    die("Password change failed!");
   }
 ?>

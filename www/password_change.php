@@ -1,5 +1,5 @@
 <?php
-	require_once('auth.php');
+  require_once('auth.php');
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -9,11 +9,31 @@
 <link href="loginmodule.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
+<?php
+  if( isset($_SESSION['ERRMSG_ARR']) && is_array($_SESSION['ERRMSG_ARR']) && count($_SESSION['ERRMSG_ARR']) >0 )
+  {
+    echo '<ul class="err">';
+    foreach($_SESSION['ERRMSG_ARR'] as $msg)
+    {
+      echo '<li>',$msg,'</li>';
+    }
+    echo '</ul>';
+    unset($_SESSION['ERRMSG_ARR']);
+  }
+?>
 <h1>Change password?</h1>
 <a href="user_index.php">Home</a> | <a href="user_profile.php">My Profile</a> | <a href="logout.php">Logout</a>
 <br><br>
-<form id="PasswordForm" name="PasswordForm" method="post" action="password_exec.php">
+<form id="PasswordForm" name="PasswordForm" method="post" action="password_change_exec.php">
   <table width="800" border="0" align="left" cellpadding="2" cellspacing="0">
+    <tr>
+      <th align="left" width="40%">Current Password:</th>
+      <td width="60%"><input name="vpassword" type="password" size="30" maxlength="50" class="textfield" id="vpassword"/></td>
+    </tr>
+    <tr>
+      <th>&nbsp;</th>
+      <td>&nbsp;</td>
+    </tr>
     <tr>
       <th align="left" width="40%">Password:</th>
       <td width="60%"><input name="password" type="password" size="30" maxlength="50" class="textfield" id="password"/></td>
