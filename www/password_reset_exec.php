@@ -112,7 +112,7 @@
   //Check whether the query was successful or not
   if($result)
   {
-    header("location: login_form.php");
+    header("location: password_reset_success.php");
     exit();
   }
   else

@@ -46,6 +46,9 @@
 <link href="loginmodule.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
+<h1><?php echo $_SESSION['SESS_FIRST_NAME'];?>'s Profile </h1>
+<a href="user_index.php">Home</a> | <a href="user_address.php">Update Address</a> | <a href="password_change.php">Change Password</a> | <a href="logout.php">Logout</a>
+<br><br>
 <?php
   if( isset($_SESSION['ERRMSG_ARR']) && is_array($_SESSION['ERRMSG_ARR']) && count($_SESSION['ERRMSG_ARR']) >0 )
   {
@@ -58,9 +61,6 @@
     unset($_SESSION['ERRMSG_ARR']);
   }
 ?>
-<h1><?php echo $_SESSION['SESS_FIRST_NAME'];?>'s Profile </h1>
-<a href="user_index.php">Home</a> | <a href="user_address.php">Update Address</a> | <a href="password_change.php">Change Password</a> | <a href="logout.php">Logout</a>
-<br><br>
 <form id="ProfileForm" name="ProfileForm" method="post" action="profile_update_exec.php">
   <table width="800" border="0" align="left" cellpadding="2" cellspacing="0">
     <tr>

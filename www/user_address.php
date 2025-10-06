@@ -9,6 +9,9 @@
 <link href="loginmodule.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
+<h1><?php echo $_SESSION['SESS_FIRST_NAME'];?>'s Address </h1>
+<a href="user_index.php">Home</a> | <a href="user_profile.php">Update Profile</a> | <a href="password_change.php">Change Password</a> | <a href="logout.php">Logout</a>
+<br><br>
 <?php
         if( isset($_SESSION['ERRMSG_ARR']) && is_array($_SESSION['ERRMSG_ARR']) && count($_SESSION['ERRMSG_ARR']) >0 ) {
                 echo '<ul class="err">';
@@ -19,10 +22,7 @@
                 unset($_SESSION['ERRMSG_ARR']);
         }
 ?>
-<h1><?php echo $_SESSION['SESS_FIRST_NAME'];?>'s Address </h1>
-<a href="user_index.php">Home</a> | <a href="user_profile.php">Update Profile</a> | <a href="password_change.php">Change Password</a> | <a href="logout.php">Logout</a>
-<br><br>
-<form id="AddressForm" name="AddressForm" method="post" action="address_update_exec.php">
+<form id="UserAddressForm" name="UserAddressForm" method="post" action="user_address_update_exec.php">
   <table width="800" border="0" align="left" cellpadding="2" cellspacing="0">
     <tr>
       <th align="left" width="40%">Mailing Address:</th>

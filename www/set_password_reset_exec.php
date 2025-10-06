@@ -62,7 +62,7 @@
     }
     else
     {
-      die("Email lookup query failed");
+      header("location: set_password_reset_failed.php");
     }
   }
   

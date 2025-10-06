@@ -6,8 +6,20 @@
 <link href="loginmodule.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
+<?php
+  if( isset($_SESSION['ERRMSG_ARR']) && is_array($_SESSION['ERRMSG_ARR']) && count($_SESSION['ERRMSG_ARR']) >0 )
+  {
+    echo '<ul class="err">';
+    foreach($_SESSION['ERRMSG_ARR'] as $msg)
+    {
+      echo '<li>',$msg,'</li>';
+    }
+    echo '</ul>';
+    unset($_SESSION['ERRMSG_ARR']);
+  }
+?>
 <h2>Please reset your password.</h2>
-<form id="ResetForm" name="ResetForm" method="post" action="password_reset_exec.php">
+<form id="PasswordResetForm" name="PasswordResetForm" method="post" action="password_reset_exec.php">
   <table width="500" border="0" align="left" cellpadding="2" cellspacing="0">
     <tr>
       <td align="left"><b>Password:</b></td>
