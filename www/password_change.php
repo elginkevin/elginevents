@@ -19,6 +19,10 @@
       <td width="60%"><input name="password" type="password" size="30" maxlength="50" class="textfield" id="password"/></td>
     </tr>
     <tr>
+      <td>&nbsp;</td>
+      <td align="left" width="60%"><i>At least 8 characters please.</i></td>
+    </tr>
+    <tr>
       <th align="left" width="40%">Confirm Password:</th>
       <td width="60%"><input name="cpassword" type="password" size="30" maxlength="50" class="textfield" id="cpassword"/></td>
     </tr>

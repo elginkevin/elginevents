@@ -38,14 +38,36 @@
 	//Sanitize the POST values
 	$email = clean($_POST['email']);
 	$password = clean($_POST['password']);
+	$cpassword = clean($_POST['cpassword']);
+        $resethash = clean($_POST['resethash']);
 	
 	//Input Validations
 	if($email == '') {
 		$errmsg_arr[] = 'Email missing';
 		$errflag = true;
 	}
+        if(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                $errmsg_arr[] = 'Invalid email address';
+                $errflag = true;
+        }
 	if($password == '') {
 		$errmsg_arr[] = 'Password missing';
+		$errflag = true;
+	}
+	if($cpassword == '') {
+		$errmsg_arr[] = 'Confirm password missing';
+		$errflag = true;
+	}
+	if(strcmp($password, $cpassword) != 0 ) {
+		$errmsg_arr[] = 'Passwords do not match';
+		$errflag = true;
+	}
+        if(strlen($password) < 8) {
+                $errmsg_arr[] = 'Password too short';
+                $errflag = true;
+        }
+	if($resethash == '') {
+		$errmsg_arr[] = 'Hash missing';
 		$errflag = true;
 	}
 	
@@ -53,12 +75,12 @@
 	if($errflag) {
 		$_SESSION['ERRMSG_ARR'] = $errmsg_arr;
 		session_write_close();
-		header("location: login_form.php");
+		header("location: password_reset.php");
 		exit();
 	}
 
         //Get salt
-	$qry="SELECT * FROM User WHERE email_primary='$email'";
+	$qry="SELECT * FROM User WHERE email_primary='$email' AND resethash = '$resethash'";
 	$result=mysql_query($qry);
 
 	//Check whether the user was found
@@ -66,8 +88,9 @@
 		if(mysql_num_rows($result) == 1) {
 			$User = mysql_fetch_assoc($result);
                         $passsalt = $User['passsalt'];
+                        $userkeyid = $User['userkeyid'];
 		}else {
-			header("location: login_failed.php");
+			header("location: password_reset_failed.php");
 			exit();
 		}
 	}else {
@@ -78,38 +101,16 @@
         $encrypt = new PS_Encrypt();
         $passhash = bin2hex($encrypt->encrypt("$passalt","$password"));
 
-	//Create query
-	$qry="SELECT * FROM User WHERE email_primary='$email' AND passhash='$passhash' and email_primary_v='Y'";
-	$result=mysql_query($qry);
-	
-	//Check whether the query was successful or not
-	if($result) {
-		if(mysql_num_rows($result) == 1) {
-			//Login Successful
-			session_regenerate_id();
-			$User = mysql_fetch_assoc($result);
-			$_SESSION['SESS_USER_ID'] = $User['userkeyid'];
-			$userkeyid = $User['userkeyid'];
-			$_SESSION['SESS_FIRST_NAME'] = $User['first_name'];
-			$_SESSION['SESS_LAST_NAME'] = $User['last_name'];
-			session_write_close();
+        //Update password
+        $qry = "UPDATE User SET passhash = '$passhash', resethash = NULL WHERE userkeyid = $userkeyid";
+        $result = @mysql_query($qry);
 
-                        //Overwrite resethash if not null
-	                $qry="UPDATE User SET resethash = NULL WHERE userkeyid='$userkeyid' AND resethash is not NULL";
-	                $result=mysql_query($qry);
-	                if($result) {
-			  header("location: user_index.php");
-			  exit();
-                        }else {
-                                die("Trouble removing reset hash value");
-                        }
+        //Check whether the query was successful or not
+        if($result) {
+                header("location: login_form.php");
+                exit();
+        }else {
+                die("Password reset failed!");
+        }
 
-		}else {
-			//Login failed
-			header("location: login_failed.php");
-			exit();
-		}
-	}else {
-		die("Query failed");
-	}
 ?>

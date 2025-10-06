@@ -52,6 +52,10 @@
 		$errmsg_arr[] = 'Passwords do not match';
 		$errflag = true;
 	}
+        if(strlen($password) < 8) {
+                $errmsg_arr[] = 'Password too short';
+                $errflag = true;
+        }
 
         $userkeyid = $_SESSION['SESS_USER_ID'];
 
@@ -76,7 +80,7 @@
         $passhash = bin2hex($encrypt->encrypt("$passalt","$password"));
 
 	//Update password
-	$qry = "UPDATE User SET passhash = '$passhash' WHERE userkeyid = $userkeyid";
+	$qry = "UPDATE User SET passhash = '$passhash', resethash = NULL WHERE userkeyid = $userkeyid";
 	$result = @mysql_query($qry);
 	
 	//Check whether the query was successful or not

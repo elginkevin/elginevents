@@ -16,6 +16,7 @@ CREATE TABLE IF NOT EXISTS `User` (
   `phone_other` varchar(20) NULL,
   `passhash` varchar(256) NOT NULL,
   `passsalt` varchar(32) NOT NULL,
+  `resethash` varchar(32) NULL,
   `create_date` datetime NOT NULL,
   `maint_date` timestamp NULL default NULL on update CURRENT_TIMESTAMP,
   PRIMARY KEY (`userkeyid`),
