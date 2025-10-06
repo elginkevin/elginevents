@@ -6,16 +6,16 @@
 <link href="loginmodule.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
-<p>&nbsp;</p>
+<h2>Welcome back!</h2>
 <form id="loginForm" name="loginForm" method="post" action="login_exec.php">
-  <table width="500" border="0" align="center" cellpadding="2" cellspacing="0">
+  <table width="500" border="0" align="left" cellpadding="2" cellspacing="0">
     <tr>
       <td align="left" width="112"><b>Email:</b></td>
-      <td width="188"><input name="email" type="text" class="textfield" id="email" /></td>
+      <td width="188"><input name="email" type="text" maxlength="255" class="textfield" id="email" /></td>
     </tr>
     <tr>
       <td align="left"><b>Password:</b></td>
-      <td><input name="password" type="password" class="textfield" id="password" /></td>
+      <td><input name="password" type="password" maxlength="50" class="textfield" id="password" /></td>
     </tr>
     <tr>
       <td>&nbsp;</td>

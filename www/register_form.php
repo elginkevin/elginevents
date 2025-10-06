@@ -19,31 +19,59 @@
 		unset($_SESSION['ERRMSG_ARR']);
 	}
 ?>
+<h2>Please tell us a little bit about yourself:</h2>
 <form id="RegistrationForm" name="RegistrationForm" method="post" action="register_exec.php">
-  <table width="400" border="0" align="center" cellpadding="2" cellspacing="0">
+  <table width="800" border="0" align="left" cellpadding="2" cellspacing="0">
     <tr>
-      <th align="left">First Name:</th>
-      <td><input name="fname" type="text" class="textfield" id="fname" /></td>
+      <th align="left" width="40%">First Name:</th>
+      <td width="60%"><input name="fname" type="text" size="30" maxlength="30" class="textfield" id="fname"/>*</td>
     </tr>
     <tr>
-      <th align="left">Last Name:</th>
-      <td><input name="lname" type="text" class="textfield" id="lname" /></td>
+      <th align="left" width="40%">Last Name:</th>
+      <td width="60%"><input name="lname" type="text" size="30" maxlength="50" class="textfield" id="lname"/>*</td>
     </tr>
     <tr>
-      <th align="left" width="124">Email:</th>
-      <td width="168"><input name="email" type="text" class="textfield" id="email" /></td>
+      <th align="left" width="40%">Email:</th>
+      <td width="60%"><input name="email" type="text" size="30" maxlength="255" class="textfield" id="email"/>*</td>
     </tr>
     <tr>
-      <th align="left">Password:</th>
-      <td><input name="password" type="password" class="textfield" id="password" /></td>
-    </tr>
-    <tr>
-      <th align="left">Confirm Password:</th>
-      <td><input name="cpassword" type="password" class="textfield" id="cpassword" /></td>
+      <th align="left" width="40%">Password:</th>
+      <td width="60%"><input name="password" type="password" size="30" maxlength="50" class="textfield" id="password"/>*</td>
     </tr>
     <tr>
       <td>&nbsp;</td>
-      <td><input type="submit" name="Submit" value="Register" /></td>
+      <td align="left" width="60%"><i>At least 8 characters please.</i></td>
+    </tr>
+    <tr>
+      <th align="left" width="40%">Confirm Password:</th>
+      <td width="60%"><input name="cpassword" type="password" size="30" maxlength="50" class="textfield" id="cpassword"/>*</td>
+    </tr>
+    <tr>
+      <th align="left" width="40%">A nice long phrase:</th>
+      <td width="60%"><input name="favorite" type="password" size="30" maxlength="30" class="textfield" id="favorite"/>*</td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+      <td align="left" width="60%"><i>Just pick something biggish like &#147;Walton Islands&#148;.</i></th>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+      <td align="left" width="60%"><i>But that one&#146;s mine, you can&#146;t use it.</i></th>
+    </tr>
+    <tr>
+      <th align="left" width="40%">That phrase again:</th>
+      <td width="60%"><input name="cfavorite" type="password" size="30" maxlength="30" class="textfield" id="cfavorite"/>*</td>
+    </tr>
+    <tr>
+      <th>&nbsp;</th>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+      <td><input type="submit" name="Submit" value="Register"/></td>
+    </tr>
+    <tr>
+      <th colspan="2">* Required fields</th>
     </tr>
   </table>
 </form>

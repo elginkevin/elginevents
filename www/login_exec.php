@@ -53,9 +53,29 @@
 		header("location: login_form.php");
 		exit();
 	}
-	
+
+        //Get salt
+	$qry="SELECT * FROM User WHERE email_primary='$email'";
+	$result=mysql_query($qry);
+
+	//Check whether the user was found
+	if($result) {
+		if(mysql_num_rows($result) == 1) {
+			$User = mysql_fetch_assoc($result);
+                        $passsalt = $User['passsalt'];
+		}else {
+			header("location: login_failed.php");
+			exit();
+		}
+	}else {
+		die("Query failed");
+	}
+
+        //Do encryption (not ready for prime time
+        $passhash = mcrypt_encrypt(MCRYPT_RIJNDAEL_256, $passsalt, $password, MCRYPT_MODE_ECB);
+
 	//Create query
-	$qry="SELECT * FROM User WHERE email_primary='$email' AND passhash='".md5($_POST['password'])."'";
+	$qry="SELECT * FROM User WHERE email_primary='$email' AND passhash='$passhash'";
 	$result=mysql_query($qry);
 	
 	//Check whether the query was successful or not

@@ -16,8 +16,8 @@
 </head>
 <body>
 <h1>Logout </h1>
-<p align="center">&nbsp;</p>
-<h4 align="center" class="err">You have been logged out.</h4>
-<p align="center">Click here to <a href="login_form.php">Login</a></p>
+<p align="left">&nbsp;</p>
+<h4 align="left" class="err">You have been logged out.</h4>
+<p align="left">Would you like to <a href="login_form.php">login</a> again?</p>
 </body>
 </html>

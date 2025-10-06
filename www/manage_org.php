@@ -9,14 +9,7 @@
 <link href="loginmodule.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
-<h1>Welcome back, <?php echo $_SESSION['SESS_FIRST_NAME'];?>!</h1>
+<h1>Time to take over the world!</h1>
 <a href="user_index.php">Home</a> | <a href="user_profile.php">My Profile</a> | <a href="logout.php">Logout</a>
-<br>
-<br>
-<h2><a href="show_event.php">Find something to do!</a></h2>
-<br>
-<h2><a href="create_event.php">Create an event</a></h2>
-<h2><a href="manage_event.php">Manage my events</a></h2>
-<h2><a href="manage_org.php">Manage my organizations</a></h2>
 </body>
 </html>

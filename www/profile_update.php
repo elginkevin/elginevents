@@ -4,7 +4,7 @@
 	
 	//Include database connection details
 	require_once('config.php');
-
+	
 	//Array to store validation errors
 	$errmsg_arr = array();
 	
@@ -38,8 +38,6 @@
 	$email = clean($_POST['email']);
 	$password = clean($_POST['password']);
 	$cpassword = clean($_POST['cpassword']);
-	$favorite = clean($_POST['favorite']);
-	$cfavorite = clean($_POST['cfavorite']);
 	
 	//Input Validations
 	if($fname == '') {
@@ -62,34 +60,10 @@
 		$errmsg_arr[] = 'Confirm password missing';
 		$errflag = true;
 	}
-	if(strcmp($password, $cpassword) != 0 ) {
+	if( strcmp($password, $cpassword) != 0 ) {
 		$errmsg_arr[] = 'Passwords do not match';
 		$errflag = true;
 	}
-        if(strlen($favorite) < 8 ) {
-                $errmsg_arr[] = 'Password not long enough';
-                $errflag = true;
-        }
-	if($favorite == '') {
-		$errmsg_arr[] = 'Nice long phrase missing';
-		$errflag = true;
-	}
-	if($cfavorite == '') {
-		$errmsg_arr[] = 'That phrase again missing';
-		$errflag = true;
-	}
-	if(strcasecmp($favorite, 'walton islands') == 0 ) {
-		$errmsg_arr[] = 'Stop using my phrase';
-		$errflag = true;
-	}
-	if(strcmp($favorite, $cfavorite) != 0 ) {
-		$errmsg_arr[] = 'Phrases do not match';
-		$errflag = true;
-	}
-        if(strlen($favorite) < 10 ) {
-                $errmsg_arr[] = 'Phrase not long enough';
-                $errflag = true;
-        }
 	
 	//Check for duplicate email
 	if($email != '') {
@@ -115,20 +89,15 @@
 		exit();
 	}
 
-        //Do encryption (not ready for prime time
-        $passsalt = hash('ripemd128','$favorite');
-        $passhash = mcrypt_encrypt(MCRYPT_RIJNDAEL_256, $passsalt, $password, MCRYPT_MODE_ECB);
-
 	//Create INSERT query
-	$qry = "INSERT INTO User(first_name, last_name, email_primary, passhash, passsalt, create_date) VALUES('$fname','$lname','$email','$passhash','$passsalt',NOW())";
+	$qry = "INSERT INTO User(first_name, last_name, email_primary, passhash, create_date) VALUES('$fname','$lname','$email','".md5($_POST['password'])."',NOW())";
 	$result = @mysql_query($qry);
 	
 	//Check whether the query was successful or not
-	if($result != 0) {
+	if($result) {
 		header("location: register_success.php");
 		exit();
 	}else {
 		die("Insert query failed");
-        }
-
+	}
 ?>

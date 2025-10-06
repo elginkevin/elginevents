@@ -6,7 +6,9 @@
 <link href="loginmodule.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
-<h1 align="center">Access Denied!</h1>
-<h4 align="center" class="err">You do not have access to this resource.</h4>
+<h1 align="left">Access Denied!</h1>
+<h4 align="left" class="err">You do not have access to this resource.</h4>
+<br>
+<p align="left">Please <a href="login_form.php">login</a>.</p>
 </body>
 </html>

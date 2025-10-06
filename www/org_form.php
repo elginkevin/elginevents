@@ -9,22 +9,18 @@
 <link href="loginmodule.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
-<h1><?php echo $_SESSION['SESS_FIRST_NAME'];?>'s Profile </h1>
-<a href="user_index.php">Home</a> | <a href="password_change.php">Change Password</a> | <a href="logout.php">Logout</a>
+<h1>Tell us about it, <?php echo $_SESSION['SESS_FIRST_NAME'];?>!</h1>
+<a href="user_index.php">Home</a> | <a href="user_profile.php">My Profile</a> | <a href="logout.php">Logout</a>
 <br><br>
-<form id="ProfileForm" name="ProfileForm" method="post" action="profile_update.php">
+<form id="OrgForm" name="OrgForm" method="post" action="org_insert.php">
   <table width="800" border="0" align="left" cellpadding="2" cellspacing="0">
     <tr>
-      <th align="left" width="40%">First Name:</th>
-      <td width="60%"><input name="fname" type="text" size="30" maxlength="30" class="textfield" id="fname"/>*</td>
+      <th align="left" width="40%">Organization Name:</th>
+      <td width="60%"><input name="oname" type="text" size="50" maxlength="100" class="textfield" id="oname"/>*</td>
     </tr>
     <tr>
-      <th align="left" width="40%">Last Name:</th>
-      <td width="60%"><input name="lname" type="text" size="30" maxlength="50" class="textfield" id="lname"/>*</td>
-    </tr>
-    <tr>
-      <th align="left" width="40%">Email:</th>
-      <td width="60%"><input name="email" type="text" size="30" maxlength="255" class="textfield" id="email"/>*</td>
+      <th align="left" width="40%">Description:</th>
+      <td width="60%"><input name="odescr" type="text" size="50" maxlength="255" class="textfield" id="odescr"/>*</td>
     </tr>
     <tr>
       <td>&nbsp;</td>
@@ -33,6 +29,14 @@
     <tr>
       <th>&nbsp;</th>
       <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <th align="left" width="40%">Email:</th>
+      <td width="60%"><input name="email" type="text" size="50" maxlength="255" class="textfield" id="email"/>*</td>
+    </tr>
+    <tr>
+      <th align="left" width="40%">Website:</th>
+      <td width="60%"><input name="ourl" type="text" size="50" maxlength="2500" class="textfield" id="ourl"/>*</td>
     </tr>
     <tr>
       <th align="left" width="40%">Mailing Address:</th>
@@ -56,11 +60,11 @@
     </tr>
     <tr>
       <th align="left" width="40%">Mobile Phone:</th>
-      <td width="60%"><input name="mphone" type="mphone" size="20" maxlength="20" class="textfield" id="mphone"/></td>
+      <td width="60%"><input name="mphone" type="mphone" size="20" class="textfield" id="mphone"/></td>
     </tr>
     <tr>
       <th align="left" width="40%">Other Phone:</th>
-      <td width="60%"><input name="ophone" type="ophone" size="20" maxlength="20" class="textfield" id="ophone"/></td>
+      <td width="60%"><input name="ophone" type="ophone" size="20" class="textfield" id="ophone"/></td>
     </tr>
     <tr>
       <th>&nbsp;</th>
@@ -68,7 +72,7 @@
     </tr>
     <tr>
       <td>&nbsp;</td>
-      <td><input type="submit" name="Submit" value="Update"/></td>
+      <td><input type="submit" name="Submit" value="Submit"/></td>
     </tr>
   </table>
 </form>
