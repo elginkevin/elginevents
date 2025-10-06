@@ -2,7 +2,7 @@ Copyright (c) 2012, PHPSense.com
 All rights reserved.
 
 This license is a legal agreement between you and PHPSense.com for the use
-of PS_Pagination.php (the "Software").  By obtaining the Software you
+of PS_Encrypt.php (the "Software").  By obtaining the Software you
 agree to comply with the terms and conditions of this license.
 
 PERMITTED USE

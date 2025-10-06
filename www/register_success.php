@@ -7,6 +7,11 @@
 </head>
 <body>
 <h1>Registration Successful</h1>
-<p align="left">Would you like to <a href="login_form.php">log in</a> now?</p>
+<br>
+<p align="left" class="err">
+  You will receive an email with a link to click on that will help us verify your address.<br><br>
+  Once you receive that message, please click on the included link.<br><br>
+  Thanks for your help!<br>
+</p>
 </body>
 </html>

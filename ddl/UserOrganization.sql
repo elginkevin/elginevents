@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS `UserOrganization` (
   `statuskeyid` smallint(9) NOT NULL,
   `create_date` datetime NOT NULL,
   `maint_date` timestamp NULL default NULL on update CURRENT_TIMESTAMP,
-  PRIMARY KEY  (`userkeyid`,`orgkeyid`),
+  PRIMARY KEY (`userkeyid`,`orgkeyid`),
   FOREIGN KEY (`userkeyid`) REFERENCES User(`userkeyid`) ON DELETE RESTRICT,
   FOREIGN KEY (`orgkeyid`) REFERENCES Organization(`orgkeyid`) ON DELETE RESTRICT,
   FOREIGN KEY (`rolekeyid`) REFERENCES Role(`rolekeyid`) ON DELETE RESTRICT,

@@ -47,22 +47,6 @@
       <td width="60%"><input name="cpassword" type="password" size="30" maxlength="50" class="textfield" id="cpassword"/>*</td>
     </tr>
     <tr>
-      <th align="left" width="40%">A nice long phrase:</th>
-      <td width="60%"><input name="favorite" type="password" size="30" maxlength="30" class="textfield" id="favorite"/>*</td>
-    </tr>
-    <tr>
-      <td>&nbsp;</td>
-      <td align="left" width="60%"><i>Just pick something biggish like &#147;Walton Islands&#148;.</i></th>
-    </tr>
-    <tr>
-      <td>&nbsp;</td>
-      <td align="left" width="60%"><i>But that one&#146;s mine, you can&#146;t use it.</i></th>
-    </tr>
-    <tr>
-      <th align="left" width="40%">That phrase again:</th>
-      <td width="60%"><input name="cfavorite" type="password" size="30" maxlength="30" class="textfield" id="cfavorite"/>*</td>
-    </tr>
-    <tr>
       <th>&nbsp;</th>
       <td>&nbsp;</td>
     </tr>

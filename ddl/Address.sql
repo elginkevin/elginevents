@@ -9,6 +9,6 @@ CREATE TABLE IF NOT EXISTS `Address` (
   `address_zip` char(5) NULL,
   `create_date` datetime NOT NULL,
   `maint_date` timestamp NULL default NULL on update CURRENT_TIMESTAMP,
-  PRIMARY KEY  (`addresskeyid`),
+  PRIMARY KEY (`addresskeyid`),
   FOREIGN KEY (`statuskeyid`) REFERENCES Status(`statuskeyid`) ON DELETE RESTRICT
 ) AUTO_INCREMENT = 1;

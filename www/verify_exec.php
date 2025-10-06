@@ -38,6 +38,7 @@
 	//Sanitize the POST values
 	$email = clean($_POST['email']);
 	$password = clean($_POST['password']);
+        $emailhash = clean($_POST['emailhash']);
 	
 	//Input Validations
 	if($email == '') {
@@ -46,6 +47,10 @@
 	}
 	if($password == '') {
 		$errmsg_arr[] = 'Password missing';
+		$errflag = true;
+	}
+	if($emailhash == '') {
+		$errmsg_arr[] = 'Hash missing';
 		$errflag = true;
 	}
 	
@@ -58,7 +63,7 @@
 	}
 
         //Get salt
-	$qry="SELECT * FROM User WHERE email_primary='$email'";
+	$qry="SELECT * FROM User WHERE email_primary='$email' AND email_primary_v = 'N' AND email_primary_hash = '$emailhash'";
 	$result=mysql_query($qry);
 
 	//Check whether the user was found
@@ -85,15 +90,26 @@
 	//Check whether the query was successful or not
 	if($result) {
 		if(mysql_num_rows($result) == 1) {
+
 			//Login Successful
-			session_regenerate_id();
 			$User = mysql_fetch_assoc($result);
+                        $userkeyid = $User['userkeyid'];
 			$_SESSION['SESS_USER_ID'] = $User['userkeyid'];
 			$_SESSION['SESS_FIRST_NAME'] = $User['first_name'];
 			$_SESSION['SESS_LAST_NAME'] = $User['last_name'];
-			session_write_close();
-			header("location: user_index.php");
-			exit();
+
+			//Update email validation flag
+			$qry="UPDATE User SET email_primary_v = 'Y', email_primary_hash = NULL WHERE userkeyid = $userkeyid";
+			$result=mysql_query($qry);
+
+                        if($result) {
+				session_regenerate_id();
+				session_write_close();
+				header("location: user_index.php");
+				exit();
+                        }else {
+				die("Trouble updating verification flag");
+                        }
 		}else {
 			//Login failed
 			header("location: login_failed.php");

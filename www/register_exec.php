@@ -5,6 +5,9 @@
 	//Include database connection details
 	require_once('config.php');
 
+        //Include encryption library
+        require_once('ps_encrypt.php');
+
 	//Array to store validation errors
 	$errmsg_arr = array();
 	
@@ -38,8 +41,6 @@
 	$email = clean($_POST['email']);
 	$password = clean($_POST['password']);
 	$cpassword = clean($_POST['cpassword']);
-	$favorite = clean($_POST['favorite']);
-	$cfavorite = clean($_POST['cfavorite']);
 	
 	//Input Validations
 	if($fname == '') {
@@ -54,10 +55,18 @@
 		$errmsg_arr[] = 'Email missing';
 		$errflag = true;
 	}
+        if(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                $errmsg_arr[] = 'Invalid email address';
+                $errflag = true;
+        }
 	if($password == '') {
 		$errmsg_arr[] = 'Password missing';
 		$errflag = true;
 	}
+        if(strlen($password) < 8) {
+                $errmsg_arr[] = 'Password too short';
+                $errflag = true;
+        }
 	if($cpassword == '') {
 		$errmsg_arr[] = 'Confirm password missing';
 		$errflag = true;
@@ -66,30 +75,6 @@
 		$errmsg_arr[] = 'Passwords do not match';
 		$errflag = true;
 	}
-        if(strlen($favorite) < 8 ) {
-                $errmsg_arr[] = 'Password not long enough';
-                $errflag = true;
-        }
-	if($favorite == '') {
-		$errmsg_arr[] = 'Nice long phrase missing';
-		$errflag = true;
-	}
-	if($cfavorite == '') {
-		$errmsg_arr[] = 'That phrase again missing';
-		$errflag = true;
-	}
-	if(strcasecmp($favorite, 'walton islands') == 0 ) {
-		$errmsg_arr[] = 'Stop using my phrase';
-		$errflag = true;
-	}
-	if(strcmp($favorite, $cfavorite) != 0 ) {
-		$errmsg_arr[] = 'Phrases do not match';
-		$errflag = true;
-	}
-        if(strlen($favorite) < 10 ) {
-                $errmsg_arr[] = 'Phrase not long enough';
-                $errflag = true;
-        }
 	
 	//Check for duplicate email
 	if($email != '') {
@@ -115,16 +100,26 @@
 		exit();
 	}
 
-        //Do encryption (not ready for prime time
-        $passsalt = hash('ripemd128','$favorite');
-        $passhash = mcrypt_encrypt(MCRYPT_RIJNDAEL_256, $passsalt, $password, MCRYPT_MODE_ECB);
+        //Do encryption
+        $encrypt = new PS_Encrypt();
+        $passsalt = $encrypt->randomString(32);
+	$passhash = bin2hex($encrypt->encrypt("$passalt","$password"));
+
+        //Email validation
+        $emailhash = md5($encrypt->randomString(32));
 
 	//Create INSERT query
-	$qry = "INSERT INTO User(first_name, last_name, email_primary, passhash, passsalt, create_date) VALUES('$fname','$lname','$email','$passhash','$passsalt',NOW())";
+	$qry = "INSERT INTO User(first_name, last_name, email_primary, email_primary_hash, passhash, passsalt, create_date) VALUES('$fname','$lname','$email','$emailhash','$passhash','$passsalt',NOW())";
 	$result = @mysql_query($qry);
 	
 	//Check whether the query was successful or not
 	if($result != 0) {
+                $email_from = "info@elginevents.org";
+                $subject = "Please verify your registration at elginevents.org";
+                $body = "Please copy and paste this URL to your browser address bar to verify your account with elginevents.org:\n\n";
+                $urlverify = "http://www.elginevents.org/verify_user.php?email=$email&hash=$emailhash";
+
+                mail("$email", "$subject", "$body"."$urlverify", "From: $email_from");
 		header("location: register_success.php");
 		exit();
 	}else {

@@ -4,6 +4,9 @@
 	
 	//Include database connection details
 	require_once('config.php');
+
+        //Include encryption library
+        require_once('ps_encrypt.php');
 	
 	//Array to store validation errors
 	$errmsg_arr = array();
@@ -68,8 +71,9 @@
                 die("User lookup failed!");
         }
 
-        //Do encryption (not ready for prime time
-        $passhash = mcrypt_encrypt(MCRYPT_RIJNDAEL_256, $passsalt, $password, MCRYPT_MODE_ECB);
+        //Do encryption
+        $encrypt = new PS_Encrypt();
+        $passhash = bin2hex($encrypt->encrypt("$passalt","$password"));
 
 	//Update password
 	$qry = "UPDATE User SET passhash = '$passhash' WHERE userkeyid = $userkeyid";

@@ -1,3 +1,5 @@
+TRUNCATE TABLE `EventAddress`;
+
 TRUNCATE TABLE `Event`;
 
 TRUNCATE TABLE `Role`;
